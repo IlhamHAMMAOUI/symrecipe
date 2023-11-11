@@ -24,7 +24,7 @@ class IngredientController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/ingredient', name: 'app_ingredient', methods:['GET'])]
+    #[Route('/ingredient', name: 'ingredient.index', methods:['GET'])]
     public function index(IngredientRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $ingredients = $paginator->paginate(
@@ -72,7 +72,7 @@ class IngredientController extends AbstractController
             );
             // ... perform some action, such as saving the task to the database
 
-            return $this->redirectToRoute('app_ingredient');
+            return $this->redirectToRoute('ingredient.index');
         }
 
 
@@ -103,7 +103,7 @@ class IngredientController extends AbstractController
             );
             // ... perform some action, such as saving the task to the database
 
-            return $this->redirectToRoute('app_ingredient');
+            return $this->redirectToRoute('ingredient.index');
         }
         return $this->render('pages/ingredient/edit.html.twig', ['form' => $form->createView()]);
     }
@@ -117,7 +117,7 @@ class IngredientController extends AbstractController
             );
             // ... perform some action, such as saving the task to the database
 
-            return $this->redirectToRoute('app_ingredient');
+            return $this->redirectToRoute('ingredient.index');
         }
         $manager->remove($ingredient);
         $manager->flush();
@@ -125,6 +125,6 @@ class IngredientController extends AbstractController
             'success',
             'Votre ingrédient a été supprimé avec succés !'
         );
-        return $this->redirectToRoute('app_ingredient');
+        return $this->redirectToRoute('ingredient.index');
     }
 }
