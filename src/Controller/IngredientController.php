@@ -7,6 +7,7 @@ use App\Form\IngredientType;
 use App\Entity\Ingredient;
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -105,5 +106,25 @@ class IngredientController extends AbstractController
             return $this->redirectToRoute('app_ingredient');
         }
         return $this->render('pages/ingredient/edit.html.twig', ['form' => $form->createView()]);
+    }
+    #[Route('/ingredient/delete/{id}', name: 'ingredient.delete', methods: ['GET', 'POST'])]
+    public function delete(EntityManagerInterface $manager, Ingredient $ingredient):Response
+    {
+        if (!$ingredient) {
+            $this->addFlash(
+                'success',
+                'L\'ingrédient en question n\'a pas été trouvé !'
+            );
+            // ... perform some action, such as saving the task to the database
+
+            return $this->redirectToRoute('app_ingredient');
+        }
+        $manager->remove($ingredient);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            'Votre ingrédient a été supprimé avec succés !'
+        );
+        return $this->redirectToRoute('app_ingredient');
     }
 }
