@@ -80,8 +80,16 @@ class IngredientController extends AbstractController
             'form'=>$form->createView()
         ]);
     }
+    
+    /**
+     * This controller show us to create a new ingrédient 
+     *
+     * @param Ingredient $ingredient
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[Route('/ingredient/edition/{id}', name:'ingredient.edit', methods: ['GET', 'POST'])]
-    // #[ParamConverter('ingredient', class: 'App\Entity\Ingredient')]
     public function edit(Ingredient $ingredient, Request $request, EntityManagerInterface $manager) : Response
     {
         // dd($ingredient);
@@ -107,6 +115,13 @@ class IngredientController extends AbstractController
         }
         return $this->render('pages/ingredient/edit.html.twig', ['form' => $form->createView()]);
     }
+    /**
+     * This controller show us to delete a ingrédient 
+     *
+     * @param EntityManagerInterface $manager
+     * @param Ingredient $ingredient
+     * @return Response
+     */
     #[Route('/ingredient/delete/{id}', name: 'ingredient.delete', methods: ['GET', 'POST'])]
     public function delete(EntityManagerInterface $manager, Ingredient $ingredient):Response
     {

@@ -1,8 +1,7 @@
-{% extends "base.html.twig" %}
-{%block title%}SymRecipe - Nouveau recette {% endblock %}
+{% extends 'base.html.twig' %}
 {% block body %}
     <div class="container">
-        <h1 class="mt-4">Création d'une recette</h1>
+        <h1 class="mt-4">Modification de la recette</h1>
         
         {{ form_start(form) }}
         <div class="form-group">
@@ -47,6 +46,16 @@
          <div class="form-error">
         {{ form_errors(form.isFavorite) }}
     </div>
+    </div>
+
+    <div class="form-check mt-4">
+        {{ form_label(form.isFavorite) }}
+         {{ form_widget(form.isFavorite) }}
+         <div class="form-error">
+        {{ form_errors(form.isFavorite) }}
+    </div>
+      </div>
+
         {{ form_row(form.ingredients) }}
 
         {{ form_end(form) }}
